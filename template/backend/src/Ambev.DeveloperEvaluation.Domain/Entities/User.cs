@@ -12,7 +12,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities;
 /// This entity follows domain-driven design principles and includes business rules validation.
 /// </summary>
 public class User : BaseEntity, IUser
-{
+{   
     /// <summary>
     /// Gets the user's full name.
     /// Must not be null or empty and should contain both first and last names.
@@ -83,7 +83,14 @@ public class User : BaseEntity, IUser
     /// </summary>
     public User()
     {
-        CreatedAt = DateTime.UtcNow;
+        if (DateTime.MinValue == CreatedAt)
+        {
+            CreatedAt = DateTime.UtcNow;
+        }
+        else
+        {
+            UpdatedAt = DateTime.UtcNow;
+        }      
     }
 
     /// <summary>
