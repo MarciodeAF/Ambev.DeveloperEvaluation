@@ -46,4 +46,11 @@ public interface IUserRepository
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<User> UpdateAsync(User user, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// All Users from the database
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<IEnumerable<User>> GetAll(CancellationToken cancellationToken = default);
 }
