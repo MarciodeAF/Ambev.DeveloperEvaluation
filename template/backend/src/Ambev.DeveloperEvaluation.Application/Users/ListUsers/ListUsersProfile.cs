@@ -10,6 +10,6 @@ public class ListUsersProfile : Profile
     /// </summary>
     public ListUsersProfile()
     {       
-        CreateMap<IEnumerable<User>, ListUsersResult>();        
+        CreateMap<User, ListUsersResult>();        
     }
 }

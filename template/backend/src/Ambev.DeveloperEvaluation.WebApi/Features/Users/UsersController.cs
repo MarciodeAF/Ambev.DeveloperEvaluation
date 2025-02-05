@@ -123,7 +123,12 @@ public class UsersController : BaseController
         });
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPut]
     [ProducesResponseType(typeof(ApiResponseWithData<UpdateUserResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -148,14 +153,13 @@ public class UsersController : BaseController
     }
 
 
-
     /// <summary>
     /// All Users
     /// </summary>   
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>The user details if found</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ApiResponseWithData<ListUsersResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponseWithData<List<ListUsersResponse>>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetUserAll(CancellationToken cancellationToken)
@@ -163,11 +167,11 @@ public class UsersController : BaseController
         var command = _mapper.Map<ListUsersCommand>(1);
         var response = await _mediator.Send(command, cancellationToken);
 
-        return Ok(new ApiResponseWithData<ListUsersResponse>
+        return Ok(new ApiResponseWithData<List<ListUsersResponse>>
         {
             Success = true,
             Message = "All Users successfully",
-            Data = _mapper.Map<ListUsersResponse>(response)
+            Data = _mapper.Map<List<ListUsersResponse>>(response)
         });
     }
 }

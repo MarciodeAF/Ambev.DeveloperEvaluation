@@ -1,17 +1,13 @@
 using AutoMapper;
 using MediatR;
-using FluentValidation;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
-using Ambev.DeveloperEvaluation.Application.Users.GetUser;
-using System.Collections;
 
 namespace Ambev.DeveloperEvaluation.Application.Users.ListUsers;
-
 
 /// <summary>
 /// Handler for processing GetUserCommand requests
 /// </summary>
-public class ListUsersHandler : IRequestHandler<ListUsersCommand, ListUsersResult>
+public class ListUsersHandler : IRequestHandler<ListUsersCommand, List<ListUsersResult>>
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
@@ -35,15 +31,12 @@ public class ListUsersHandler : IRequestHandler<ListUsersCommand, ListUsersResul
     /// </summary>    
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>The user details if found</returns>
-    public async Task<ListUsersResult> Handle(ListUsersCommand command, CancellationToken cancellationToken)
+    public async Task<List<ListUsersResult>> Handle(ListUsersCommand command, CancellationToken cancellationToken)
     { 
         var user = await _userRepository.GetAll(cancellationToken);
         if (user == null)
-            throw new KeyNotFoundException($"Users not found");
+            throw new KeyNotFoundException($"Users not found");       
 
-
-        ListUsersResult t = _mapper.Map<ListUsersResult>(user);
-
-        return _mapper.Map<ListUsersResult>(user);
-  }
+        return _mapper.Map<List<ListUsersResult>>(user);
+    }
 }

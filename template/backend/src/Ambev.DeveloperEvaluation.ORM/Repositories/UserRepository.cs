@@ -92,7 +92,7 @@ public class UserRepository : IUserRepository
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<User>> GetAll(CancellationToken cancellationToken = default)
+    public async Task<List<User>> GetAll(CancellationToken cancellationToken = default)
     {
         return await _context.Users.ToListAsync(cancellationToken);
     }

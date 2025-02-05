@@ -5,7 +5,7 @@ namespace Ambev.DeveloperEvaluation.Application.Users.ListUsers;
 /// <summary>
 /// Command for retrieving a users
 /// </summary>
-public class ListUsersCommand : IRequest<ListUsersResult>
+public class ListUsersCommand : IRequest<List<ListUsersResult>>
 {
     public int Id { get; }
     /// <summary>

@@ -52,5 +52,5 @@ public interface IUserRepository
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<IEnumerable<User>> GetAll(CancellationToken cancellationToken = default);
+    Task<List<User>> GetAll(CancellationToken cancellationToken = default);
 }
