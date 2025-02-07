@@ -15,7 +15,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
-#pragma warning disable 612, 618
+
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
@@ -63,7 +63,83 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
 
                     b.ToTable("Users", (string)null);
                 });
-#pragma warning restore 612, 618
+
+            modelBuilder.Entity("Ambev.DeveloperEvaluation.Domain.Entities.Sale", b =>
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("uuid")
+                    .HasDefaultValueSql("gen_random_uuid()");
+
+                b.Property<long>("NumberSale")
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnType("long");
+
+                b.Property<DateTime>("CreatedSale")
+                    .IsRequired()                 
+                    .HasColumnType("date");
+
+                b.Property<string>("Customer")
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnType("character varying(100)");
+
+                b.Property<decimal>("TotalValue")
+                    .IsRequired()                    
+                    .HasColumnType("decimal(10, 2)");
+
+                b.Property<string>("Agency")
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnType("character varying(50)");
+
+                b.Property<DateTime>("UpdatedAt")
+                    .IsRequired()                   
+                    .HasColumnType("date");
+
+                b.HasKey("Id");
+
+                b.ToTable("Sales", (string)null);
+            });
+
+            modelBuilder.Entity("Ambev.DeveloperEvaluation.Domain.Entities.Product", b =>
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("uuid")
+                    .HasDefaultValueSql("gen_random_uuid()");
+
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnType("character varying(100)");
+
+                b.Property<string>("Description")
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnType("character varying(100)");
+
+                b.Property<decimal>("UnitPrice")
+                    .IsRequired()
+                    .HasColumnType("decimal(10, 2)");
+
+                b.Property<int>("Discount")
+                    .IsRequired()
+                    .HasColumnType("integer");
+
+                b.Property<Guid>("SaleId")
+                    .ValueGeneratedOnAdd()
+                    .IsRequired()
+                    .HasColumnType("uuid")
+                    .HasDefaultValueSql("gen_random_uuid()");              
+
+                b.HasKey("Id");
+                b.HasIndex("SaleId");
+
+                b.ToTable("Products", (string)null);
+            });
+
         }
     }
 }
