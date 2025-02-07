@@ -30,10 +30,9 @@ public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleRe
         //if (existingUser != null)
         //    throw new InvalidOperationException($"User with email {command.Email} already exists");
 
-        var user = _mapper.Map<Sale>(command);
-       // user.Password = _passwordHasher.HashPassword(command.Password);
+        var sale = _mapper.Map<Sale>(command);  
 
-        var createdSale = await _saleRepository.CreateAsync(user, cancellationToken);
+        var createdSale = await _saleRepository.CreateAsync(sale, cancellationToken);
         var result = _mapper.Map<CreateSaleResult>(createdSale);
 
         return result;
