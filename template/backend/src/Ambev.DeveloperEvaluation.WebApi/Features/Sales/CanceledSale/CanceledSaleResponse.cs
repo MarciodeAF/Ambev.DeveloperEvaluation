@@ -1,10 +1,14 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
+namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CanceledSale;
 
-public class CreateSaleRequest
+/// <summary>
+/// API response model for CanceledUser operation
+/// </summary>
+public class CanceledSaleResponse
 {
+    public Guid Id { get; set; }
 
     public long NumberSale { get; set; }
 
@@ -18,8 +22,7 @@ public class CreateSaleRequest
 
     public DateTime? UpdatedAt { get; set; }
 
-    public List<Product>? Products { get; set; } = new List<Product> { };
+    public List<Product> Products { get; set; }
 
     public SaleStatus Status { get; set; }
 }
-

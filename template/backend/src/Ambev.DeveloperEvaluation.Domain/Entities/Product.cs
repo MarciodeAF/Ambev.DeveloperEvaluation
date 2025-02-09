@@ -1,4 +1,6 @@
 ﻿
+using Ambev.DeveloperEvaluation.Domain.Enums;
+
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
 public class Product
@@ -13,9 +15,9 @@ public class Product
 
     public decimal UnitPrice { get; set; }
 
-    public int Discount { get; set; }
-
-    //public Sale Sale { get; set; }
+    public int Discount { get; set; }  
 
     public virtual Guid SaleId { get; set; }
+
+    public ProductStatus Status { get; set; }
 }

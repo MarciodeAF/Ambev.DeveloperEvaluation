@@ -1,5 +1,6 @@
 ﻿using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.Domain.Common;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.Domain.Validation;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
@@ -29,6 +30,8 @@ public class Sale : BaseEntity
     public DateTime? UpdatedAt { get; set; }
 
     public List<Product> Products { get; set; }
+
+    public SaleStatus Status { get; set; }
 
 
     public ValidationResultDetail Validate()

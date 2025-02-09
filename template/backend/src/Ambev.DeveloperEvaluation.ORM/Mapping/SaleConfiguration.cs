@@ -19,5 +19,9 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
         builder.Property(u => u.TotalValue);
         builder.Property(u => u.Agency).IsRequired().HasMaxLength(50); ;
         builder.Property(u => u.UpdatedAt).IsRequired();
+
+        builder.Property(u => u.Status)
+           .HasConversion<string>()
+           .HasMaxLength(20);
     }
 }

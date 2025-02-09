@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale;
 
@@ -22,4 +23,6 @@ public class UpdateSaleResponse
     public DateTime? UpdatedAt { get; set; }
 
     public List<Product> Products { get; set; }
+
+    public SaleStatus Status { get; set; }
 }

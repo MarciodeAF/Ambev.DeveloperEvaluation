@@ -39,7 +39,8 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                    Customer = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                    TotalValue = table.Column<decimal>(type: "decimal(10, 2)",  nullable: false),
                    Agency = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                   UpdatedAt = table.Column<DateTime>(type: "date", nullable: false)
+                   UpdatedAt = table.Column<DateTime>(type: "date", nullable: false),
+                   Status = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
                },
                constraints: table =>
                {
@@ -56,7 +57,8 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                    Description = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                    UnitPrice = table.Column<decimal>(type: "decimal(10, 2)", nullable: false),
                    Discount = table.Column<int>(type: "integer", nullable: false),
-                   SaleId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()")
+                   SaleId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                   Status = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
                },
                constraints: table =>
                {

@@ -98,6 +98,11 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                     .IsRequired()                   
                     .HasColumnType("date");
 
+                b.Property<string>("Status")
+                       .IsRequired()
+                       .HasMaxLength(20)
+                       .HasColumnType("character varying(20)");
+
                 b.HasKey("Id");
 
                 b.ToTable("Sales", (string)null);
@@ -132,7 +137,12 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                     .ValueGeneratedOnAdd()
                     .IsRequired()
                     .HasColumnType("uuid")
-                    .HasDefaultValueSql("gen_random_uuid()");              
+                    .HasDefaultValueSql("gen_random_uuid()");
+
+                b.Property<string>("Status")
+                       .IsRequired()
+                       .HasMaxLength(20)
+                       .HasColumnType("character varying(20)");
 
                 b.HasKey("Id");
                 b.HasIndex("SaleId");

@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 
@@ -18,6 +19,6 @@ public class CreateSaleResponse
 
     public List<Product>? Products { get; set; }
 
-
+    public SaleStatus Status { get; set; }
 
 }

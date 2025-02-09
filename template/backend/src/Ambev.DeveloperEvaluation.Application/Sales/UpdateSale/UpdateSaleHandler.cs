@@ -4,9 +4,8 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using MediatR;
 using FluentValidation;
-using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 
-namespace Ambev.DeveloperEvaluation.Application.Sales.UserSale;
+namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 
 public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleResult>
 {
@@ -27,9 +26,9 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleRe
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors);
 
-        var userValid = await _saleRepository.GetByIdAsync(command.Id, cancellationToken);
-        if (userValid == null)
-            throw new KeyNotFoundException($"User with ID {command.Id} not found");
+        var saleValid = await _saleRepository.GetByIdAsync(command.Id, cancellationToken);
+        if (saleValid == null)
+            throw new KeyNotFoundException($"Sale with ID {command.Id} not found");
 
         var sale = _mapper.Map<Sale>(command);    
 

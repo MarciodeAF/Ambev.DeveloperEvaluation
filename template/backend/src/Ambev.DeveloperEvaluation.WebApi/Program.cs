@@ -28,7 +28,10 @@ public class Program
             builder.Services.AddEndpointsApiExplorer();
 
             builder.AddBasicHealthChecks();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.EnableAnnotations();
+            });
 
             builder.Services.AddDbContext<DefaultContext>(options => {
                 options.UseNpgsql(

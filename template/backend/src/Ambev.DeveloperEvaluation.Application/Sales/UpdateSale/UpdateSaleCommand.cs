@@ -1,6 +1,7 @@
 ﻿
 using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
@@ -22,6 +23,8 @@ public class UpdateSaleCommand : IRequest<UpdateSaleResult>
     public DateTime? UpdatedAt { get; set; }
 
     public List<Product> Products { get; set; } = new List<Product> { };
+
+    public SaleStatus Status { get; set; }
 
 
     public ValidationResultDetail Validate()
