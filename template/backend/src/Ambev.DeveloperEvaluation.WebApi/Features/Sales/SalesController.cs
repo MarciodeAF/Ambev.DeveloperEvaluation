@@ -1,8 +1,10 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.CanceledSale;
+using Ambev.DeveloperEvaluation.Application.Sales.CanceledSaleProduct;
 using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CanceledSale;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CanceledSaleProduct;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale;
 
@@ -14,7 +16,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 public class SalesController : BaseController
 {
     private readonly IMediator _mediator;
@@ -91,12 +93,12 @@ public class SalesController : BaseController
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    [HttpGet(Name = "CanceledSale")]
+    [HttpPut(Name = "CanceledSale")]
     [ProducesResponseType(typeof(ApiResponseWithData<CanceledSaleResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [SwaggerOperation(Summary = "CanceledSale", Description = "Canceled Sale")]
-    public async Task<IActionResult> CanceledSale([FromQuery] CanceledSaleRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> CanceledSale([FromBody] CanceledSaleRequest request, CancellationToken cancellationToken)
     {
         var validator = new CanceledSaleRequestValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -115,32 +117,34 @@ public class SalesController : BaseController
         });
     }
 
+
     /// <summary>
-    /// 
+    /// Canceled Product at a Sale
     /// </summary>
-    /// <param name = "request" ></ param >
-    /// < param name="cancellationToken"></param>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    //[HttpPut]
-    //[ProducesResponseType(typeof(ApiResponseWithData<UpdateSaleResponse>), StatusCodes.Status200OK)]
-    //[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    //[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-    //public async Task<IActionResult> CanceledProductSale([FromBody] CanceledSaleRequest request, CancellationToken cancellationToken)
-    //{
-    //    var validator = new CanceledSaleRequestValidator();
-    //    var validationResult = await validator.ValidateAsync(request, cancellationToken);
+    [HttpPut(Name = "CanceledSaleProduct")]
+    [ProducesResponseType(typeof(ApiResponseWithData<CanceledSaleProductResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    [SwaggerOperation(Summary = "CanceledSaleProduct", Description = "Canceled Product at a Sale")]
+    public async Task<IActionResult> CanceledSaleProduct([FromBody] CanceledSaleProductRequest request, CancellationToken cancellationToken)
+    {
+        var validator = new CanceledSaleProductRequestValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-    //    if (!validationResult.IsValid)
-    //        return BadRequest(validationResult.Errors);
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
 
-    //    var command = _mapper.Map<CanceledSaleCommand>(request);
-    //    var response = await _mediator.Send(command, cancellationToken);
+        var command = _mapper.Map<CanceledSaleProductCommand>(request);
+        var response = await _mediator.Send(command, cancellationToken);
 
-    //    return Ok(new ApiResponseWithData<CanceledSaleResponse>
-    //    {
-    //        Success = true,
-    //        Message = "Sale canceled successfully",
-    //        Data = _mapper.Map<CanceledSaleResponse>(response)
-    //    });
-    //}
+        return Ok(new ApiResponseWithData<CanceledSaleProductResponse>
+        {
+            Success = true,
+            Message = "Product canceled successfully at the Sale",
+            Data = _mapper.Map<CanceledSaleProductResponse>(response)
+        });
+    }
 }
