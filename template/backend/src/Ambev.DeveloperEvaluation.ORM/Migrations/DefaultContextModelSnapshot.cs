@@ -83,11 +83,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                 b.Property<string>("Customer")
                     .IsRequired()
                     .HasMaxLength(100)
-                    .HasColumnType("character varying(100)");
-
-                b.Property<decimal>("TotalValue")
-                    .IsRequired()                    
-                    .HasColumnType("decimal(10, 2)");
+                    .HasColumnType("character varying(100)");               
 
                 b.Property<string>("Agency")
                     .IsRequired()
@@ -95,13 +91,17 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                     .HasColumnType("character varying(50)");
 
                 b.Property<DateTime>("UpdatedAt")
-                    .IsRequired()                   
+                    .IsRequired(false)                   
                     .HasColumnType("date");
 
                 b.Property<string>("Status")
                        .IsRequired()
                        .HasMaxLength(20)
                        .HasColumnType("character varying(20)");
+
+                b.Property<decimal>("TotalValue")
+                  .IsRequired()
+                  .HasColumnType("decimal(10, 2)");
 
                 b.HasKey("Id");
 
@@ -143,6 +143,15 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                        .IsRequired()
                        .HasMaxLength(20)
                        .HasColumnType("character varying(20)");
+
+                b.Property<int>("Amount")
+                   .IsRequired()
+                   .HasColumnType("integer");
+
+                b.Property<decimal>("TotalValue")
+                   .IsRequired()
+                   .HasColumnType("decimal(10, 2)");
+
 
                 b.HasKey("Id");
                 b.HasIndex("SaleId");

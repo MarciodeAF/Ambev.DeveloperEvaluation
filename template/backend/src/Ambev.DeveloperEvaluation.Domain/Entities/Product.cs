@@ -17,7 +17,11 @@ public class Product
 
     public int Discount { get; set; }  
 
-    public virtual Guid SaleId { get; set; }
+    public Guid SaleId { get; set; }
 
     public ProductStatus Status { get; set; }
+
+    public int Amount { get; set; }
+
+    public Decimal TotalValue { get; set; }
 }

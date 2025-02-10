@@ -22,5 +22,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(u => u.Status)
            .HasConversion<string>()
            .HasMaxLength(20);
+
+        builder.Property(u => u.Amount).IsRequired();
+        builder.Property(u => u.TotalValue);
     }
 }

@@ -4,7 +4,7 @@ using Ambev.DeveloperEvaluation.Domain.Enums;
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale;
 
 /// <summary>
-/// API response model for UpdateUser operation
+/// API response model for UpdateSale operation
 /// </summary>
 public class UpdateSaleResponse
 {

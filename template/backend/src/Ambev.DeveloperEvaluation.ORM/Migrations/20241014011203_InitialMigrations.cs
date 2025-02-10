@@ -36,11 +36,11 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                    NumberSale = table.Column<long>(type: "long", maxLength: 100, nullable: false),
                    CreatedSale = table.Column<DateTime>(type: "date", nullable: false),
-                   Customer = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                   TotalValue = table.Column<decimal>(type: "decimal(10, 2)",  nullable: false),
+                   Customer = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),                   
                    Agency = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                   UpdatedAt = table.Column<DateTime>(type: "date", nullable: false),
-                   Status = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
+                   UpdatedAt = table.Column<DateTime>(type: "date", nullable: true),
+                   Status = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                   TotalValue = table.Column<decimal>(type: "decimal(10, 2)", nullable: false)
                },
                constraints: table =>
                {
@@ -58,7 +58,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                    UnitPrice = table.Column<decimal>(type: "decimal(10, 2)", nullable: false),
                    Discount = table.Column<int>(type: "integer", nullable: false),
                    SaleId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
-                   Status = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
+                   Status = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                   Amount = table.Column<int>(type: "integer", nullable: false),
+                   TotalValue = table.Column<decimal>(type: "decimal(10, 2)", nullable: false)
                },
                constraints: table =>
                {

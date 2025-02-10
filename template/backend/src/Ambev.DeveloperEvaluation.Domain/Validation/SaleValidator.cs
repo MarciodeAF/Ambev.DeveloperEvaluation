@@ -1,6 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using FluentValidation;
+using System.Text.RegularExpressions;
 
 namespace Ambev.DeveloperEvaluation.Domain.Validation;
 
@@ -8,25 +9,25 @@ public class SaleValidator : AbstractValidator<Sale>
 {
     public SaleValidator()
     {
-        //RuleFor(user => user.Email).SetValidator(new EmailValidator());
+        RuleFor(sale => sale.Products)
+            .NotEmpty()
+            .WithMessage("The Products cannot be empty.")
+            .Must(BeValidAmountMore20)
+            .WithMessage("Maximum limit exceeded, allowed up to 20.");
+    }
 
-        //RuleFor(user => user.Username)
-        //    .NotEmpty()
-        //    .MinimumLength(3).WithMessage("Username must be at least 3 characters long.")
-        //    .MaximumLength(50).WithMessage("Username cannot be longer than 50 characters.");
-        
-        //RuleFor(user => user.Password).SetValidator(new PasswordValidator());
-        
-        //RuleFor(user => user.Phone)
-        //    .Matches(@"^\+[1-9]\d{10,14}$")
-        //    .WithMessage("Phone number must start with '+' followed by 11-15 digits.");
-        
-        //RuleFor(user => user.Status)
-        //    .NotEqual(UserStatus.Unknown)
-        //    .WithMessage("User status cannot be Unknown.");
-        
-        //RuleFor(user => user.Role)
-        //    .NotEqual(UserRole.None)
-        //    .WithMessage("User role cannot be None.");
+    private bool BeValidAmountMore20(List<Product> products)
+    {
+        bool bRes = true;
+
+        foreach (var item in products)
+        {
+            if (item.Amount > 20)
+            {
+                bRes = false;
+            }
+        } 
+
+        return bRes;
     }
 }

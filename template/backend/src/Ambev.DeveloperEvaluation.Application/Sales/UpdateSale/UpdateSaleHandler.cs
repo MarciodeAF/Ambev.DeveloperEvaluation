@@ -30,7 +30,26 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleRe
         if (saleValid == null)
             throw new KeyNotFoundException($"Sale with ID {command.Id} not found");
 
-        var sale = _mapper.Map<Sale>(command);    
+        var sale = _mapper.Map<Sale>(command);
+
+        foreach (var item in sale.Products)
+        {
+            if (item.Status != Domain.Enums.ProductStatus.Active)
+                continue;
+
+            if (item.Amount > 4 && item.Amount < 10)
+                item.Discount = 10;
+            else if (item.Amount > 10 && item.Amount < 20)
+                item.Discount = 20;
+            else
+                item.Discount = 0;
+
+            item.TotalValue = (decimal)((float)item.UnitPrice - ((float)item.UnitPrice * ((float)item.Discount / 100))) * item.Amount;
+        }
+
+        sale.TotalValue = (decimal)sale.Products.Where(x => x.Status == Domain.Enums.ProductStatus.Active)
+                                                .GroupBy(item => item.SaleId)
+                                                .Select(group => group.Sum(item => ((float)item.UnitPrice - ((float)item.UnitPrice * ((float)item.Discount / 100))) * item.Amount )).FirstOrDefault();
 
         var UpdatedSale = await _saleRepository.UpdateAsync(sale, cancellationToken);
         var result = _mapper.Map<UpdateSaleResult>(UpdatedSale);

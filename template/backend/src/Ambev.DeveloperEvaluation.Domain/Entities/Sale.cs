@@ -2,6 +2,7 @@
 using Ambev.DeveloperEvaluation.Domain.Common;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.Domain.Validation;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
@@ -13,6 +14,9 @@ public class Sale : BaseEntity
     {
         this.NumberSale = NumberSale;
         Products = new List<Product>();
+
+        CreatedSale = DateTime.UtcNow;
+
     }
 
     public Guid Id { get; set; }
