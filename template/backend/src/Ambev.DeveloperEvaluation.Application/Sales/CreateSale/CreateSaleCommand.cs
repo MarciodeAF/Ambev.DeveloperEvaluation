@@ -10,27 +10,13 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 
 public class CreateSaleCommand : IRequest<CreateSaleResult>
 {
-
     public long NumberSale { get; set; }
-
-    // public DateTime CreatedSale { get; set; }
 
     public string Customer { get; set; } = string.Empty;
 
-    //   public Decimal TotalValue { get; set; }
-
-    public string Agency { get; set; } = string.Empty;
-
-    //  public DateTime? UpdatedAt { get; set; }
+    public string Agency { get; set; } = string.Empty;     
 
     public List<Product>? Products { get; set; } = new List<Product> { };
-
-    //  public SaleStatus Status { get; set; }
-
-
-
-
-
 
     public ValidationResultDetail Validate()
     {
@@ -42,5 +28,4 @@ public class CreateSaleCommand : IRequest<CreateSaleResult>
             Errors = result.Errors.Select(o => (ValidationErrorDetail)o)
         };
     }
-
 }

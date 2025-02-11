@@ -47,6 +47,7 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleRe
             item.TotalValue = (decimal)((float)item.UnitPrice - ((float)item.UnitPrice * ((float)item.Discount / 100))) * item.Amount;
         }
 
+        sale.CreatedSale = saleValid.CreatedSale;
         sale.TotalValue = (decimal)sale.Products.Where(x => x.Status == Domain.Enums.ProductStatus.Active)
                                                 .GroupBy(item => item.SaleId)
                                                 .Select(group => group.Sum(item => ((float)item.UnitPrice - ((float)item.UnitPrice * ((float)item.Discount / 100))) * item.Amount )).FirstOrDefault();
