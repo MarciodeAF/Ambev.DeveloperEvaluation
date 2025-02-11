@@ -7,7 +7,7 @@ using FluentValidation;
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 
 public class CreateSaleRequestValidator : AbstractValidator<CreateSaleRequest>
-{
+{   
     public CreateSaleRequestValidator()
     {
         RuleFor(sale => sale.NumberSale).NotEmpty();
@@ -27,6 +27,11 @@ public class CreateSaleRequestValidator : AbstractValidator<CreateSaleRequest>
            .WithMessage("ValidUnit cannot be empty.");
     }
 
+    /// <summary>
+    /// Validation Amount more 20 item
+    /// </summary>
+    /// <param name="products"></param>
+    /// <returns></returns>
     private bool BeValidAmountMore20(List<Product> products)
     {
         bool bRes = true;
@@ -42,6 +47,11 @@ public class CreateSaleRequestValidator : AbstractValidator<CreateSaleRequest>
         return bRes;
     }
 
+    /// <summary>
+    /// Validation name
+    /// </summary>
+    /// <param name="products"></param>
+    /// <returns></returns>
     private bool BeValidName(List<Product> products)
     {
         bool bRes = true;
@@ -57,6 +67,11 @@ public class CreateSaleRequestValidator : AbstractValidator<CreateSaleRequest>
         return bRes;
     }
 
+    /// <summary>
+    /// Validation Description
+    /// </summary>
+    /// <param name="products"></param>
+    /// <returns></returns>
     private bool BeValidDescription(List<Product> products)
     {
         bool bRes = true;
@@ -72,6 +87,11 @@ public class CreateSaleRequestValidator : AbstractValidator<CreateSaleRequest>
         return bRes;
     }
 
+    /// <summary>
+    /// Validation 
+    /// </summary>
+    /// <param name="products"></param>
+    /// <returns></returns>
     private bool BeValidUnitPrice(List<Product> products)
     {
         bool bRes = true;
