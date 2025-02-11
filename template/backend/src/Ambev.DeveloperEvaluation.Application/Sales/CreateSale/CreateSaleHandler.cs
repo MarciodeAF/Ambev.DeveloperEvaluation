@@ -34,9 +34,9 @@ public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleRe
 
         foreach (var item in sale.Products)
         {  
-            if (item.Amount > 4 && item.Amount < 10)            
+            if (item.Amount > 4 && item.Amount <= 10)            
                 item.Discount = 10;            
-            else if (item.Amount > 10 && item.Amount < 20)            
+            else if (item.Amount > 10 && item.Amount <= 20)            
                 item.Discount = 20;
             else
                 item.Discount = 0;
@@ -44,11 +44,11 @@ public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleRe
             item.Status = Domain.Enums.ProductStatus.Active;
 
             item.TotalValue = (decimal)((float)item.UnitPrice - ((float)item.UnitPrice * ((float)item.Discount / 100))) * item.Amount;
-        }
+        }       
 
         sale.TotalValue = (decimal)sale.Products.Where(x => x.Status == Domain.Enums.ProductStatus.Active)
-                                                .GroupBy(item => item.SaleId)
-                                                .Select(group => group.Sum(item => ((float)item.UnitPrice - ((float)item.UnitPrice * ((float)item.Discount / 100))) * item.Amount)).FirstOrDefault();
+                                               .GroupBy(item => item.SaleId)
+                                               .Select(group => group.Sum(item => item.TotalValue)).FirstOrDefault();
 
         var createdSale = await _saleRepository.CreateAsync(sale, cancellationToken);
         var result = _mapper.Map<CreateSaleResult>(createdSale);

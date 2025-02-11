@@ -2,6 +2,7 @@
 using AutoMapper;
 using MediatR;
 using FluentValidation;
+using Ambev.DeveloperEvaluation.Domain.Entities;
 
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CanceledSaleProduct;
@@ -34,7 +35,11 @@ public class CanceledSaleProductHandler : IRequestHandler<CanceledSaleProductCom
         if (product == null)
             throw new KeyNotFoundException($"Product with ID {command.Id} not found");
 
-        product.Status = command.Status;       
+        product.Status = command.Status;
+
+        saleValid.TotalValue = (decimal)saleValid.Products.Where(x => x.Status == Domain.Enums.ProductStatus.Active)
+                                             .GroupBy(item => item.SaleId)
+                                             .Select(group => group.Sum(item => item.TotalValue)).FirstOrDefault();
 
         var UpdatedSale = await _saleRepository.UpdateAsync(saleValid, cancellationToken);
         var result = _mapper.Map<CanceledSaleProductResult>(UpdatedSale);
